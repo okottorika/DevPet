@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About DevPet</title>
+  <link rel="stylesheet" href="panel-common.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      user-select: none;
+      padding: 24px 20px;
+    }
+
+    .about-container {
+      text-align: center;
+      max-width: 320px;
+      width: 100%;
+    }
+
+    /* --- Character hero area --- */
+    .about-hero {
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .about-character {
+      display: block;
+      margin: 0 auto;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      transition: opacity 0.15s ease;
+    }
+
+    .about-glow {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 16px;
+      background: radial-gradient(ellipse, rgba(74, 222, 128, 0.25) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: glow-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
+      50% { opacity: 1; transform: translateX(-50%) scaleX(1.15); }
+    }
+
+    /* --- Speech bubble --- */
+    .about-speech {
+      position: relative;
+      background: rgba(74, 222, 128, 0.08);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      border-radius: 10px;
+      padding: 8px 14px;
+      margin: 0 20px 16px;
+      font-size: 11px;
+      color: #c0e8c8;
+      font-style: italic;
+      line-height: 1.5;
+      animation: fade-in 0.6s ease-out 0.3s both;
+    }
+
+    .about-speech::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 10px;
+      height: 10px;
+      background: rgba(74, 222, 128, 0.08);
+      border-left: 1px solid rgba(74, 222, 128, 0.2);
+      border-top: 1px solid rgba(74, 222, 128, 0.2);
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- Title area --- */
+    .about-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #4ade80;
+      margin-bottom: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    .about-version {
+      font-size: 10px;
+      color: #666;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+
+    .about-tagline {
+      font-size: 12px;
+      color: #a0a0a0;
+      margin-bottom: 18px;
+    }
+
+    /* --- Sections --- */
+    .about-section {
+      border-top: 1px solid #333;
+      padding-top: 12px;
+      margin-bottom: 14px;
+    }
+
+    .about-section-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .about-credit-line {
+      font-size: 11px;
+      color: #e0e0e0;
+      margin-bottom: 4px;
+    }
+
+    .about-credit-role {
+      color: #777;
+    }
+
+    .about-tech-list {
+      font-size: 11px;
+      color: #b0b0b0;
+      line-height: 1.6;
+    }
+
+    .about-tech-item {
+      display: inline;
+      color: #d0d0d0;
+    }
+
+    .about-tech-sep {
+      color: #444;
+      margin: 0 5px;
+    }
+
+    /* --- Links --- */
+    .about-links {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .about-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: #888;
+      text-decoration: none;
+      cursor: pointer;
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid #333;
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.2s ease;
+    }
+
+    .about-link:hover {
+      color: #60a5fa;
+      border-color: rgba(96, 165, 250, 0.3);
+      background: rgba(96, 165, 250, 0.06);
+      text-decoration: none;
+    }
+
+    .about-link svg {
+      width: 13px;
+      height: 13px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .about-email {
+      font-size: 10px;
+      color: #555;
+      margin-bottom: 18px;
+      user-select: text;
+      letter-spacing: 0.3px;
+    }
+
+    .about-email span {
+      color: #888;
+    }
+
+    .about-skin-name {
+      font-size: 9px;
+      color: #555;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      height: 14px;
+      transition: opacity 0.3s ease;
+    }
+
+    .about-origin {
+      font-size: 10px;
+      color: #777;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .about-origin strong {
+      color: #a0a0a0;
+    }
+
+    /* --- Footer --- */
+    .about-footer {
+      font-size: 9px;
+      color: #444;
+      margin-top: 12px;
+    }
+
+    .button-row {
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="about-container">
+
+    <!-- Character with glow -->
+    <div class="about-hero">
+      <canvas id="devpet-canvas" class="about-character" width="128" height="128"></canvas>
+      <div class="about-glow"></div>
+    </div>
+
+    <!-- Skin name -->
+    <div class="about-skin-name" id="skin-name"></div>
+
+    <!-- Speech bubble -->
+    <div class="about-speech" id="speech"></div>
+
+    <!-- Title -->
+    <div class="about-title">DevPet</div>
+    <div class="about-version">v0.1.0</div>
+    <div class="about-tagline">Your desktop coding companion</div>
+
+    <!-- Credits -->
+    <div class="about-section">
+      <div class="about-section-label">Credits</div>
+      <div class="about-credit-line">
+        <span class="about-credit-role">Created by</span> Sidd
+      </div>
+      <div class="about-credit-line">
+        <span class="about-credit-role">Co-Developer</span> Claude Code
+      </div>
+    </div>
+
+    <!-- Tech Stack -->
+    <div class="about-section">
+      <div class="about-section-label">Built With</div>
+      <div class="about-tech-list">
+        <span class="about-tech-item">Tauri</span><span class="about-tech-sep">&middot;</span><span class="about-tech-item">Rust</span><span class="about-tech-sep">&middot;</span><span class="about-tech-item">JavaScript</span><span class="about-tech-sep">&middot;</span><span class="about-tech-item">HTML/CSS</span>
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div class="about-links">
+      <a class="about-link" href="https://github.com/sidd" data-url="https://github.com/sidd">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.933 0-1.089.39-1.984 1.03-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.594 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.335-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        GitHub
+      </a>
+    </div>
+    <div class="about-email">
+      <span>sidd@devpet.app</span>
+    </div>
+
+    <!-- Origin note -->
+    <div class="about-origin">
+      A reimagined fork by <strong>Sidd</strong>
+    </div>
+
+  </div>
+
+  <script>
+    // --- Skin rotation ---
+    const SKINS = [
+      { file: 'devpet-default',     name: 'Default' },
+      { file: 'devpet-classic',     name: 'Classic' },
+      { file: 'devpet-tuxedo',      name: 'Tuxedo' },
+      { file: 'devpet-cyberpunk',   name: 'Cyberpunk' },
+      { file: 'devpet-pirate',      name: 'Pirate' },
+      { file: 'devpet-firefighter', name: 'Firefighter' },
+      { file: 'devpet-wizard',      name: 'Wizard' },
+      { file: 'devpet-arctic',      name: 'Arctic' },
+      { file: 'devpet-retro80s',    name: 'Retro 80s' },
+      { file: 'devpet-alien',       name: 'Alien' },
+      { file: 'devpet-madscientist', name: 'Mad Scientist' },
+    ];
+    const SKIN_ROTATE_INTERVAL = 4000; // ms between skin changes
+
+    // Preload all skin images
+    const skinImages = SKINS.map(s => {
+      const img = new Image();
+      img.src = `assets/sprites/skins/${s.file}.png`;
+      return img;
+    });
+
+    let currentSkinIndex = 0;
+    const skinNameEl = document.getElementById('skin-name');
+
+    // --- Sprite animation ---
+    const canvas = document.getElementById('devpet-canvas');
+    const ctx = canvas.getContext('2d');
+    const FRAME_SIZE = 32;
+    const SCALE = 4;
+    const SPRITE_ROW = 10; // thumbsUp animation
+    const FRAME_COUNT = 3;
+    const FRAME_DURATIONS = [300, 250, 400];
+
+    let currentFrame = 0;
+    let lastFrameTime = 0;
+    let animId;
+
+    ctx.imageSmoothingEnabled = false;
+
+    function drawFrame(frame) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const img = skinImages[currentSkinIndex];
+      if (!img.complete) return;
+      ctx.drawImage(
+        img,
+        frame * FRAME_SIZE, SPRITE_ROW * FRAME_SIZE,
+        FRAME_SIZE, FRAME_SIZE,
+        0, 0,
+        FRAME_SIZE * SCALE, FRAME_SIZE * SCALE
+      );
+    }
+
+    function animate(timestamp) {
+      if (!lastFrameTime) lastFrameTime = timestamp;
+      const elapsed = timestamp - lastFrameTime;
+      if (elapsed >= FRAME_DURATIONS[currentFrame]) {
+        currentFrame = (currentFrame + 1) % FRAME_COUNT;
+        drawFrame(currentFrame);
+        lastFrameTime = timestamp;
+      }
+      animId = requestAnimationFrame(animate);
+    }
+
+    function switchSkin() {
+      currentSkinIndex = (currentSkinIndex + 1) % SKINS.length;
+      skinNameEl.textContent = SKINS[currentSkinIndex].name;
+      // Fade the canvas briefly for a smooth transition
+      canvas.style.opacity = '0';
+      setTimeout(() => {
+        drawFrame(currentFrame);
+        canvas.style.opacity = '1';
+      }, 150);
+    }
+
+    // Start animation once the first skin loads
+    skinImages[0].onload = () => {
+      skinNameEl.textContent = SKINS[0].name;
+      drawFrame(0);
+      animId = requestAnimationFrame(animate);
+      // Start rotating skins
+      setInterval(switchSkin, SKIN_ROTATE_INTERVAL);
+    };
+
+    // --- Random speech ---
+    const quotes = [
+      "Woof! Let's code something great!",
+      "Purr... your code looks amazing!",
+      "I'm your coding buddy!",
+      "Look at you go! Keep coding!",
+      "Bark! Another commit down!",
+      "Every bug is just a puzzle to solve!",
+      "My tail wags when you're productive!",
+      "Did someone say... deploy?",
+      "Sitting here watching you code!",
+      "You're paws-itively awesome at this!",
+    ];
+    document.getElementById('speech').textContent =
+      `"${quotes[Math.floor(Math.random() * quotes.length)]}"`;
+
+    // --- Close window ---
+    async function closeWindow() {
+      cancelAnimationFrame(animId);
+      try {
+        const win = window.__TAURI__.window.getCurrentWindow();
+        await win.close();
+      } catch (e) {
+        window.close();
+      }
+    }
+
+    document.getElementById('about-close').addEventListener('click', closeWindow);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeWindow();
+    });
+
+    // --- External links ---
+    document.querySelectorAll('.about-link[data-url]').forEach(link => {
+      link.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const url = e.currentTarget.dataset.url;
+        try {
+          const { open } = await import('@tauri-apps/plugin-shell');
+          await open(url);
+        } catch {
+          window.open(url, '_blank');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

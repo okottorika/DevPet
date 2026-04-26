@@ -1,0 +1,25 @@
+{
+  "name": "devpet",
+  "version": "1.0.0",
+  "description": "Desktop coding buddy - a pixel pal who reacts to your coding activity",
+  "type": "module",
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "tauri": "tauri",
+    "generate-assets": "node scripts/generate-assets.cjs",
+    "setup": "npm install && npm run generate-assets"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/plugin-notification": "^2.0.0",
+    "@tauri-apps/plugin-store": "^2.0.0",
+    "@tauri-apps/plugin-updater": "^2.10.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0",
+    "canvas": "^3.2.1",
+    "live-server": "^1.2.0",
+    "serve": "^14.2.0"
+  }
+}
